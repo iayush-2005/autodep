@@ -6,13 +6,13 @@ import importlib.util
 
 def is_module_installed(module_name: str) -> bool:
     """
-    Check if a module can be found in the current Python environment.
+    Check if a module can be found in the current Python environment
     """
     return importlib.util.find_spec(module_name) is not None
 
 def get_missing_modules(modules: set[str]) -> list[str]:
     """
-    Return a list of modules that are not installed.
+    Return a list of modules that are not installed
     """
     return [m for m in modules if not is_module_installed(m)]
 

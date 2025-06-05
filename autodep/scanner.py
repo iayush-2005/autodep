@@ -1,4 +1,4 @@
-# autodetect_deps/scanner.py
+# autodep/scanner.py
 
 import os
 import ast

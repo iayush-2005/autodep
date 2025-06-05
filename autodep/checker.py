@@ -1,4 +1,4 @@
-# autodetect_deps/checker.py
+# autodep/checker.py
 
 import importlib.util
 

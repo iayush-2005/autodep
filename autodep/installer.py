@@ -1,4 +1,4 @@
-# autodetect_deps/installer.py
+# autodep/installer.py
 
 import subprocess
 import sys

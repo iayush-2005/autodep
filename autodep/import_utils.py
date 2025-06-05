@@ -43,7 +43,7 @@ def filter_and_normalize_imports(imports: set[str]) -> set[str]:
             continue
         cleaned.add(normalize_module_name(module))
     return cleaned
-# autodetect_deps/import_utils.py
+# autodep/import_utils.py
 
 import sys
 import re

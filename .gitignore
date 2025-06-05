@@ -1,13 +1,76 @@
+# Byte-compiled / optimized / DLL files
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
-*.log
-.env
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Virtual environment
 .venv/
-.idea/
-.vscode/
-*.egg-info/
-dist/
+venv/
+ENV/
+env/
+*.env
+pip-selfcheck.json
+
+# Distribution / packaging
+.Python
 build/
-.venv/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+
+# Pytest cache
+.pytest_cache/
+
+# MyPy & Pyright
+.mypy_cache/
+.pyright/
+
+# Editors
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# MacOS / Windows
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+
+# Requirements (auto-generated)
+requirements.txt
+
+# Temporary project folders
+test_projects/

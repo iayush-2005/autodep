@@ -1,0 +1,36 @@
+# 🧠 autodep — Auto-Detect & Install Missing Python Dependencies
+
+`autodep` is a helper tool that:
+- Scans your Python project for imported modules 🧩
+- Detects which ones are missing 🔍
+- Installs them automatically in a virtual environment 📦
+- Generates a `requirements.txt` 🚀
+
+---
+
+## ✨ Features
+
+✅ AST-based static import detection  
+✅ Filters out standard libraries and irrelevant imports  
+✅ Detects missing modules using `importlib.util.find_spec()`  
+✅ Installs only missing modules  
+✅ Automatically generates `requirements.txt`  
+✅ Supports cross-platform virtual environment creation  
+✅ Works recursively on entire project directory
+
+---
+
+## 📦 Getting Started
+
+```bash
+# Step 1: Clone the repo
+git clone https://github.com/<your-username>/autodep.git
+cd autodep
+
+# Step 2: Run the venv manager (creates or reuses .venv inside your project)
+python scripts/venv_setup.py
+
+# OR: Run the core scanner directly (inside a venv)
+python scanner_runner.py
+
+

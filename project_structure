@@ -1,0 +1,13 @@
+autodep/
+├── autodep/                # Core logic modules
+│   ├── scanner.py
+│   ├── checker.py
+│   ├── installer.py
+│   ├── import_utils.py
+├── scripts/                # Env setup / activation
+│   └── venv_setup.py
+├── scanner_runner.py       # Entry point for scanning and installing
+├── requirements.txt
+├── test_projects/
+│   └── test_project_1/
+└── README.md

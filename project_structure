@@ -1,13 +1,22 @@
 autodep/
-├── autodep/                # Core logic modules
-│   ├── scanner.py
-│   ├── checker.py
-│   ├── installer.py
-│   ├── import_utils.py
-├── scripts/                # Env setup / activation
-│   └── venv_setup.py
-├── scanner_runner.py       # Entry point for scanning and installing
-├── requirements.txt
-├── test_projects/
-│   └── test_project_1/
-└── README.md
+├── autodep/
+│   ├── __init__.py
+│   ├── main.py             # run_autodep() logic
+│   ├── cli.py              # Entry-point CLI with rich & logging
+│   ├── scanner.py          # Extracts raw import statements
+│   ├── checker.py          # Detects missing modules
+│   ├── installer.py        # Install missing modules, export requirements
+│   ├── import_utils.py     # Normalize and filter imports
+│   ├── logger.py           # Custom logger setup
+├── scripts/
+│   └── venv_setup.py       # Auto-locate and activate .venv from any depth
+├── tests/
+│   ├── test_import_utils.py
+│   ├── test_checker.py
+│   ├── test_scanner.py
+│   └── test_cli.py         # Subprocess tests for CLI
+├── Makefile                # CLI-friendly project runner
+├── pyproject.toml          # Package metadata, script entry, dev tools
+├── requirements-dev.txt    # black, flake8, pytest
+├── .gitignore
+└── README.md               # To be updated

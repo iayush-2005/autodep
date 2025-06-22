@@ -3,44 +3,53 @@ import sys
 import subprocess
 import platform
 from pathlib import Path
+from autodep.logger import get_logger
 
-def find_or_create_venv(project_path: Path) -> Path:
-    """Search for existing .venv in the project tree, or create one at root."""
-    for root, dirs, _ in os.walk(project_path):
-        if '.venv' in dirs:
-            return Path(root) / '.venv'
+logger = get_logger("venv_setup")
 
-    # Create .venv at root if none found
-    venv_path = project_path / '.venv'
-    print(f"[+] No .venv found. Creating one at {venv_path}...")
+
+def find_project_root_with_venv(start_path: Path) -> Path | None:
+    """Walk upwards from start_path to locate a `.venv` directory."""
+    current = start_path.resolve()
+    while current != current.parent:
+        if (current / '.venv').is_dir():
+            return current
+        current = current.parent
+    return None
+
+
+def create_venv_at(project_root: Path) -> Path:
+    """Create a new .venv at the project root if it doesn't exist."""
+    venv_path = project_root / '.venv'
+    logger.info("➕ Creating virtual environment at: %s", venv_path)
     subprocess.check_call([sys.executable, '-m', 'venv', str(venv_path)])
     return venv_path
 
+
 def get_venv_python(venv_path: Path) -> str:
-    if platform.system() == "Windows":
-        return str(venv_path / "Scripts" / "python.exe")
-    else:
-        return str(venv_path / "bin" / "python")
+    """Get path to the python executable in the venv."""
+    return str(venv_path / ("Scripts" if platform.system() == "Windows" else "bin") / "python")
+
 
 def main():
-    print("📁 Enter your project path:")
-    project_path_input = input("> ").strip()
-    project_path = Path(project_path_input).resolve()
+    cwd = Path.cwd()
+    logger.info("🔍 Searching for .venv from: %s", cwd)
 
-    if not project_path.exists() or not project_path.is_dir():
-        print("❌ Invalid project path.")
-        sys.exit(1)
+    project_root = find_project_root_with_venv(cwd)
 
-    venv_path = find_or_create_venv(project_path)
-    venv_python = get_venv_python(venv_path)
+    if project_root:
+        logger.info("✅ Found existing .venv at: %s", project_root / ".venv")
+    else:
+        logger.warning("⚠️  No .venv found. Assuming current directory is project root.")
+        project_root = cwd
+        create_venv_at(project_root)
 
-    main_script = Path(__file__).parent.parent / "main.py"
-    if not main_script.exists():
-        print("❌ main.py not found.")
-        sys.exit(1)
+    venv_python = get_venv_python(project_root / ".venv")
 
-    print(f"\n🚀 Running main.py inside venv: {venv_python}\n")
-    subprocess.run([venv_python, str(main_script), str(project_path)])
+    cli_entry = Path(__file__).parent.parent / "cli.py"
+    logger.info("🚀 Launching CLI from: %s", cli_entry)
+    subprocess.run([venv_python, str(cli_entry)], check=True)
+
 
 if __name__ == "__main__":
     main()
